@@ -41,7 +41,6 @@ class AircallClient
         $this->teams = new AircallTeams($this);
         $this->webhooks = new AircallWebhooks($this);
         $this->setDefaultClient();
-
     }
 
     public function __get(string $name)

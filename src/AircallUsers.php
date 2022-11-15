@@ -40,5 +40,4 @@ class AircallUsers extends AircallBase
 
         return $this->client->post($path.'/dial', $options);
     }
-
 }

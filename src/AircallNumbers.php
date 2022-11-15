@@ -12,5 +12,4 @@ use GuzzleHttp\Exception\GuzzleException;
 class AircallNumbers extends AircallBase
 {
     protected static string $baseEndpoint = 'numbers';
-
 }

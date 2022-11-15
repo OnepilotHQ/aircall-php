@@ -38,5 +38,4 @@ class AircallTeams extends AircallBase
 
         return $this->client->delete($path.'/users/'.$userId);
     }
-
 }
