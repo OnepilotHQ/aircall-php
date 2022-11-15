@@ -14,11 +14,17 @@ $client = new AircallClient(appId, apiKey);
 $client->ping();
 ```
 
-### Company
 
+### Base
+
+You can access this five methods from all endpoints that are not defined by custom class
 ```php
-// Get generic data about the account
-$client->company->get();
+$client->{endpoint}->list();
+$client->{endpoint}->get($id);
+$client->{endpoint}->create($options);
+$client->{endpoint}->update($id, $options);
+$client->{endpoint}->delete($id);
+
 ```
 
 ### Users
@@ -117,10 +123,3 @@ $client->contacts->update(165451, [
 
 // Delete a specific Contact
 $client->contacts->delete(325459);
-```
-### Tags
-TODO
-### Webhooks
-TODO
-### Teams
-TODO
