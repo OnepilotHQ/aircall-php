@@ -7,6 +7,12 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * @property AircallBase $webhooks
+ * @property AircallBase $numbers
+ * @property AircallBase $tags
+ * @property AircallBase $company
+ */
 class AircallClient
 {
     protected static string $baseUri = 'api.aircall.io';
@@ -17,29 +23,20 @@ class AircallClient
 
     public AircallUsers $users;
 
-    public AircallNumbers $numbers;
-
     public AircallCalls $calls;
 
     public AircallContacts $contacts;
 
-    public AircallTags $tags;
-
     public AircallTeams $teams;
-
-    public AircallWebhooks $webhooks;
 
     public function __construct(protected string $apiID, protected string $apiToken, $uri = 'api.aircall.io')
     {
         static::$baseUri = $uri;
         $this->base = new AircallBase($this);
         $this->users = new AircallUsers($this);
-        $this->numbers = new AircallNumbers($this);
         $this->calls = new AircallCalls($this);
         $this->contacts = new AircallContacts($this);
-        $this->tags = new AircallTags($this);
         $this->teams = new AircallTeams($this);
-        $this->webhooks = new AircallWebhooks($this);
         $this->setDefaultClient();
     }
 
