@@ -2,6 +2,7 @@
 
 namespace Aircall;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
@@ -13,9 +14,9 @@ class AircallBase
 {
     protected static string $baseEndpoint = '';
 
-    protected AircallClient $client;
+    protected Client $client;
 
-    public function __construct(AircallClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }

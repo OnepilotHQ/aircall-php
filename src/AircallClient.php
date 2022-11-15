@@ -32,12 +32,13 @@ class AircallClient
     public function __construct(protected string $apiID, protected string $apiToken, $uri = 'https://api.aircall.io')
     {
         static::$baseUri = $uri;
-        $this->base = new AircallBase($this);
-        $this->users = new AircallUsers($this);
-        $this->calls = new AircallCalls($this);
-        $this->contacts = new AircallContacts($this);
-        $this->teams = new AircallTeams($this);
         $this->setDefaultClient();
+
+        $this->base = new AircallBase($this->http_client);
+        $this->users = new AircallUsers($this->http_client);
+        $this->calls = new AircallCalls($this->http_client);
+        $this->contacts = new AircallContacts($this->http_client);
+        $this->teams = new AircallTeams($this->http_client);
     }
 
     public function __get(string $name)
