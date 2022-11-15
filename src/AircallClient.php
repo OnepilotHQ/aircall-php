@@ -5,66 +5,59 @@ namespace Aircall;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Utils;
-use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
-use stdClass;
 
 class AircallClient
 {
-    const BASE_URI = 'api.aircall.io';
+    protected static string $baseUri = 'api.aircall.io';
 
-    /** @var Client */
-    private $http_client;
+    private Client $http_client;
 
-    /** @var string API ID authentication */
-    protected $apiID;
+    protected AircallBase $base;
 
-    /** @var string API token authentication */
-    protected $apiToken;
+    public AircallUsers $users;
 
-    /** @var AircallCompany */
-    public $company;
+    public AircallNumbers $numbers;
 
-    /** @var AircallUsers */
-    public $users;
+    public AircallCalls $calls;
 
-    /** @var AircallNumbers */
-    public $numbers;
+    public AircallContacts $contacts;
 
-    /** @var AircallCalls */
-    public $calls;
+    public AircallTags $tags;
 
-    /** @var AircallContacts */
-    public $contacts;
+    public AircallTeams $teams;
 
-    /** @var AircallTags */
-    public $tags;
+    protected AircallWebhooks $webhooks;
 
-    /** @var AircallTeams */
-    public $teams;
-
-    /**
-     * @param string $apiID    app ID
-     * @param string $apiToken api Token
-     */
-    public function __construct(string $apiID, string $apiToken)
+    public function __construct(protected string $apiID, protected string $apiToken, $uri = 'api.aircall.io')
     {
-        $this->setDefaultClient();
-        $this->company = new AircallCompany($this);
+        static::$baseUri = $uri;
+        $this->base = new AircallBase($this);
         $this->users = new AircallUsers($this);
         $this->numbers = new AircallNumbers($this);
         $this->calls = new AircallCalls($this);
         $this->contacts = new AircallContacts($this);
         $this->tags = new AircallTags($this);
         $this->teams = new AircallTeams($this);
+        $this->webhooks = new AircallWebhooks($this);
+        $this->setDefaultClient();
 
-        $this->apiID = $apiID;
-        $this->apiToken = $apiToken;
     }
 
-    private function setDefaultClient()
+    public function __get(string $name)
     {
-        $this->http_client = new Client();
+        $this->base->setEndpoint($name);
+        return $this->base;
+    }
+
+    private function setDefaultClient(): void
+    {
+        $this->http_client = new Client([
+            'base_uri' => static::$baseUri .'/v1/',
+            'headers' => [
+                'Authorization' =>  trim('Bearer '.$this->apiToken)
+            ]
+        ]);
     }
 
     /**
@@ -72,9 +65,10 @@ class AircallClient
      *
      * @param Client $client
      */
-    public function setClient($client)
+    public function setClient(Client $client): static
     {
         $this->http_client = $client;
+        return $this;
     }
 
     /**
@@ -89,7 +83,7 @@ class AircallClient
      */
     public function post($endpoint, $datas = [])
     {
-        $response = $this->http_client->request('POST', $this->getUri().$endpoint, [
+        $response = $this->http_client->request('POST', $endpoint, [
             'json' => $datas,
             'headers' => [
                 'Accept' => 'application/json',
@@ -111,7 +105,7 @@ class AircallClient
      */
     public function put($endpoint, $datas = [])
     {
-        $response = $this->http_client->request('PUT', $this->getUri().$endpoint, [
+        $response = $this->http_client->request('PUT', $endpoint, [
             'json' => $datas,
             'headers' => [
                 'Accept' => 'application/json',
@@ -133,7 +127,7 @@ class AircallClient
      */
     public function delete($endpoint, $datas = [])
     {
-        $response = $this->http_client->request('DELETE', $this->getUri().$endpoint, [
+        $response = $this->http_client->request('DELETE', $endpoint, [
             'json' => $datas,
             'headers' => [
                 'Accept' => 'application/json',
@@ -153,48 +147,8 @@ class AircallClient
      */
     public function get($endpoint, $datas = [])
     {
-        $response = $this->http_client->request('GET', $this->getUri().$endpoint, [
+        $response = $this->http_client->request('GET', $endpoint, [
             'query' => $datas,
-            'headers' => [
-                'Accept' => 'application/json',
-            ],
-        ]);
-
-        return $this->handleResponse($response);
-    }
-
-    /**
-     * Returns next page of the result.
-     *
-     * @param stdClass $meta
-     *
-     * @throws GuzzleException
-     *
-     * @return mixed
-     */
-    public function nextPage($meta)
-    {
-        $response = $this->http_client->request('GET', $this->addAuthToUri($meta->next_page_link), [
-            'headers' => [
-                'Accept' => 'application/json',
-            ],
-        ]);
-
-        return $this->handleResponse($response);
-    }
-
-    /**
-     * Returns previous page of the result.
-     *
-     * @param stdClass $meta
-     *
-     * @throws GuzzleException
-     *
-     * @return mixed
-     */
-    public function previousPage($meta)
-    {
-        $response = $this->http_client->request('GET', $this->addAuthToUri($meta->previous_page_link), [
             'headers' => [
                 'Accept' => 'application/json',
             ],
@@ -206,41 +160,6 @@ class AircallClient
     public function ping()
     {
         return $this->get('ping', []);
-    }
-
-    /**
-     * Returns authentication parameters.
-     *
-     * @return string
-     */
-    public function getAuth()
-    {
-        return $this->apiID.':'.$this->apiToken;
-    }
-
-    /**
-     * Returns Aircall API Uri.
-     *
-     * @return string
-     */
-    public function getUri()
-    {
-        return 'https://'.$this->getAuth().'@'.self::BASE_URI.'/v1/';
-    }
-
-    /**
-     * Add Authentitication parameters to an Aircall API Uri.
-     *
-     * @param $uri
-     *
-     * @return mixed
-     */
-    public function addAuthToUri($uri)
-    {
-        if (false !== $pos = strpos($uri, self::BASE_URI)) {
-            return substr_replace($uri, $this->getAuth().'@', $pos, 0);
-        }
-        throw new InvalidArgumentException('uri is not an Aircall API Uri');
     }
 
     /**

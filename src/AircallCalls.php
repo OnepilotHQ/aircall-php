@@ -9,43 +9,9 @@ use GuzzleHttp\Exception\GuzzleException;
  *
  * @see http://developer.aircall.io/#call
  */
-class AircallCalls
+class AircallCalls extends AircallBase
 {
-    const BASE_ENDPOINT = 'calls';
-
-    /** @var AircallClient */
-    private $client;
-
-    public function __construct(AircallClient $client)
-    {
-        $this->client = $client;
-    }
-
-    /**
-     * Lists Calls.
-     *
-     * @throws GuzzleException
-     *
-     * @return mixed
-     */
-    public function list(array $options = [])
-    {
-        return $this->client->get(self::BASE_ENDPOINT, $options);
-    }
-
-    /**
-     * Retrieve a single Call.
-     *
-     * @throws GuzzleException
-     *
-     * @return mixed
-     */
-    public function get(int $id)
-    {
-        $path = $this->callPath($id);
-
-        return $this->client->get($path);
-    }
+    protected static string $baseEndpoint = 'calls';
 
     /**
      * Search Calls.
@@ -54,10 +20,6 @@ class AircallCalls
      *
      * @return mixed
      */
-    public function search(array $options = [])
-    {
-        return $this->client->get(self::BASE_ENDPOINT.'/search', $options);
-    }
 
     /**
      * Display a link in-app to the User who answered a specific Call.
@@ -70,7 +32,7 @@ class AircallCalls
      */
     public function link(int $id, array $options = [])
     {
-        $path = $this->callPath($id);
+        $path = $this->path($id);
 
         return $this->client->post($path.'/link', $options);
     }
@@ -84,7 +46,7 @@ class AircallCalls
      */
     public function transfert(int $id, array $options = [])
     {
-        $path = $this->callPath($id);
+        $path = $this->path($id);
 
         return $this->client->post($path.'/transfers', $options);
     }
@@ -98,7 +60,7 @@ class AircallCalls
      */
     public function comment(int $id, array $options = [])
     {
-        $path = $this->callPath($id);
+        $path = $this->path($id);
 
         return $this->client->post($path.'/comments', $options);
     }
@@ -112,7 +74,7 @@ class AircallCalls
      */
     public function pauseRecording(int $id, array $options = [])
     {
-        $path = $this->callPath($id);
+        $path = $this->path($id);
 
         return $this->client->post($path.'/pause_recording', $options);
     }
@@ -126,7 +88,7 @@ class AircallCalls
      */
     public function resumeRecording(int $id, array $options = [])
     {
-        $path = $this->callPath($id);
+        $path = $this->path($id);
 
         return $this->client->post($path.'/resume_recording', $options);
     }
@@ -142,7 +104,7 @@ class AircallCalls
      */
     public function getMetadata(int $id, array $options = [])
     {
-        $path = $this->callPath($id);
+        $path = $this->path($id);
 
         return $this->client->post($path.'/metadata', $options);
     }
@@ -156,7 +118,7 @@ class AircallCalls
      */
     public function setTags(int $id, array $options = [])
     {
-        $path = $this->callPath($id);
+        $path = $this->path($id);
 
         return $this->client->post($path.'/tags', $options);
     }
@@ -170,7 +132,7 @@ class AircallCalls
      */
     public function deleteRecording(int $id)
     {
-        $path = $this->callPath($id);
+        $path = $this->path($id);
 
         return $this->client->delete($path.'/recording');
     }
@@ -184,7 +146,7 @@ class AircallCalls
      */
     public function deleteVoicemail(int $id, array $options = [])
     {
-        $path = $this->callPath($id);
+        $path = $this->path($id);
 
         return $this->client->delete($path.'/voicemail', $options);
     }
@@ -198,13 +160,8 @@ class AircallCalls
      */
     public function addInsightCards(int $id, array $options = [])
     {
-        $path = $this->callPath($id);
+        $path = $this->path($id);
 
         return $this->client->post($path.'/insight_cards', $options);
-    }
-
-    public function callPath(int $id): string
-    {
-        return self::BASE_ENDPOINT.'/'.$id;
     }
 }
