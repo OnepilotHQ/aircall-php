@@ -1,0 +1,15 @@
+build/
+composer.lock
+vendor/
+bin/
+*.swp
+
+###############
+# Externalize #
+###############
+.idea/*
+.php_cs.cache
+.settings
+.DS_Store
+.rules/*
+composer.phar

@@ -1,0 +1,22 @@
+{
+    "name": "onepilothq/aircall-php",
+    "description": "Aircall API client built on top of Guzzle",
+    "keywords": ["aircall", "aircall.io", "api", "guzzle"],
+    "autoload": {
+        "psr-4": {
+            "Aircall\\": ["src"]
+        }
+    },
+    "require": {
+        "php": ">= 7.1",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "~7.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*"
+    },
+    "config": {
+        "bin-dir": "bin",
+        "apcu-autoloader": true
+    }
+}
