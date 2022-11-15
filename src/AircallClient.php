@@ -27,7 +27,7 @@ class AircallClient
 
     public AircallTeams $teams;
 
-    protected AircallWebhooks $webhooks;
+    public AircallWebhooks $webhooks;
 
     public function __construct(protected string $apiID, protected string $apiToken, $uri = 'api.aircall.io')
     {
