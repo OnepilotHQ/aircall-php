@@ -124,7 +124,7 @@ class AircallBase
 
     public function search(array $queryParams = [])
     {
-        return $this->handleResponse($this->client->get($this->endpoint().'/search',[
+        return $this->handleResponse($this->client->get($this->endpoint().'/search', [
             'query' => $queryParams
         ]));
     }

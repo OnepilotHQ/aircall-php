@@ -102,7 +102,7 @@ class AircallClient
      */
     public function put($endpoint, $datas = [])
     {
-        $response = $this->http_client->put( $endpoint, [
+        $response = $this->http_client->put($endpoint, [
             'json' => $datas
         ]);
 
@@ -121,7 +121,7 @@ class AircallClient
      */
     public function delete($endpoint, $datas = [])
     {
-        $response = $this->http_client->delete( $endpoint, [
+        $response = $this->http_client->delete($endpoint, [
             'json' => $datas
         ]);
 
@@ -138,7 +138,7 @@ class AircallClient
      */
     public function get($endpoint, $datas = [])
     {
-        $response = $this->http_client->get( $endpoint, [
+        $response = $this->http_client->get($endpoint, [
             'query' => $datas
         ]);
 
