@@ -20,11 +20,14 @@ class AircallContacts extends AircallBase
      *
      * @return mixed
      */
-    public function addPhoneNumber(int $id, array $options = [])
+    public function addPhoneNumber(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/phone_details', $options);
+        return $this->client->post(
+            $path.'/phone_details',
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -34,11 +37,14 @@ class AircallContacts extends AircallBase
      *
      * @return mixed
      */
-    public function updatePhoneNumber(int $contactId, int $phoneNumberId, array $options = [])
+    public function updatePhoneNumber(int $contactId, int $phoneNumberId, array $params = [])
     {
         $path = $this->endpoint($contactId);
 
-        return $this->client->post($path.'/phone_details/'.$phoneNumberId, $options);
+        return $this->client->post(
+            $path.'/phone_details/'.$phoneNumberId,
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -50,7 +56,10 @@ class AircallContacts extends AircallBase
      */
     public function deletePhoneNumber(int $contactId, int $phoneNumberId)
     {
-        return $this->client->delete($this->endpoint().'/phone_details/'.$phoneNumberId);
+        return $this->client->delete(
+            $this->endpoint().'/phone_details/'.
+            $phoneNumberId
+        );
     }
 
     /**
@@ -60,11 +69,14 @@ class AircallContacts extends AircallBase
      *
      * @return mixed
      */
-    public function addEmail(int $id, array $options = [])
+    public function addEmail(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/email_details', $options);
+        return $this->client->post(
+            $path.'/email_details',
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -74,11 +86,14 @@ class AircallContacts extends AircallBase
      *
      * @return mixed
      */
-    public function updateEmail(int $contactId, int $emailId, array $options = [])
+    public function updateEmail(int $contactId, int $emailId, array $params = [])
     {
         $path = $this->endpoint($contactId);
 
-        return $this->client->post($path.'/email_details/'.$emailId, $options);
+        return $this->client->post(
+            $path.'/email_details/'.$emailId,
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -90,6 +105,9 @@ class AircallContacts extends AircallBase
      */
     public function deleteEmail(int $contactId, int $emailId)
     {
-        return $this->client->delete($this->endpoint().'/email_details/'.$emailId);
+        return $this->client->delete(
+            $this->endpoint().'/email_details/'.
+            $emailId
+        );
     }
 }

@@ -14,14 +14,6 @@ class AircallCalls extends AircallBase
     protected static string $baseEndpoint = 'calls';
 
     /**
-     * Search Calls.
-     *
-     * @throws GuzzleException
-     *
-     * @return mixed
-     */
-
-    /**
      * Display a link in-app to the User who answered a specific Call.
      *
      * @deprecated since 2019-11-21 available on the Call object
@@ -30,11 +22,14 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function link(int $id, array $options = [])
+    public function link(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/link', $options);
+        return $this->client->post(
+            $path.'/link',
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -44,11 +39,14 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function transfert(int $id, array $options = [])
+    public function transfert(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/transfers', $options);
+        return $this->client->post(
+            $path.'/transfers',
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -58,11 +56,14 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function comment(int $id, array $options = [])
+    public function comment(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/comments', $options);
+        return $this->client->post(
+            $path.'/comments',
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -72,11 +73,14 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function pauseRecording(int $id, array $options = [])
+    public function pauseRecording(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/pause_recording', $options);
+        return $this->client->post(
+            $path.'/pause_recording',
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -86,11 +90,14 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function resumeRecording(int $id, array $options = [])
+    public function resumeRecording(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/resume_recording', $options);
+        return $this->client->post(
+            $path.'/resume_recording',
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -102,11 +109,14 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function getMetadata(int $id, array $options = [])
+    public function getMetadata(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/metadata', $options);
+        return $this->client->post(
+            $path.'/metadata',
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -116,11 +126,14 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function setTags(int $id, array $options = [])
+    public function setTags(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/tags', $options);
+        return $this->client->post(
+            $path.'/tags',
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -144,11 +157,12 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function deleteVoicemail(int $id, array $options = [])
+    public function deleteVoicemail(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->delete($path.'/voicemail', $options);
+        return $this->client->delete($path.'/voicemail',
+            $this->toGuzzleOptions($params));
     }
 
     /**
@@ -158,10 +172,13 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function addInsightCards(int $id, array $options = [])
+    public function addInsightCards(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/insight_cards', $options);
+        return $this->client->post(
+            $path.'/insight_cards',
+            $this->toGuzzleOptions($params)
+        );
     }
 }

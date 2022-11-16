@@ -20,11 +20,14 @@ class AircallUsers extends AircallBase
      *
      * @return mixed
      */
-    public function calls(int $id, array $options = [])
+    public function calls(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/calls', $options);
+        return $this->client->post(
+            $path.'/calls',
+            $this->toGuzzleOptions($params)
+        );
     }
 
     /**
@@ -34,10 +37,13 @@ class AircallUsers extends AircallBase
      *
      * @return mixed
      */
-    public function dial(int $id, array $options = [])
+    public function dial(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post($path.'/dial', $options);
+        return $this->client->post(
+            $path.'/dial',
+            $this->toGuzzleOptions($params)
+        );
     }
 }

@@ -30,11 +30,13 @@ class AircallBase
      *
      * @return mixed
      */
-    public function list(array $options = [])
+    public function list(array $params = [])
     {
-        return $this->handleResponse($this->client->get($this->endpoint(), [
-            'query' => $options
-        ]));
+        return $this->handleResponse(
+            $this->client->get(
+                $this->endpoint(),
+                $this->toGuzzleQuery($params))
+        );
     }
 
     /**
@@ -48,7 +50,9 @@ class AircallBase
     {
         $path = $this->userPath($id);
 
-        return $this->handleResponse($this->client->get($path));
+        return $this->handleResponse(
+            $this->client->get($path)
+        );
     }
 
 
@@ -64,12 +68,13 @@ class AircallBase
      *
      * @return mixed
      */
-    public function create(array $options = [])
+    public function create(array $params = [])
     {
         return $this->handleResponse(
-            $this->client->post($this->endpoint(), [
-                'json' => $options
-            ])
+            $this->client->post(
+                $this->endpoint(),
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -80,14 +85,15 @@ class AircallBase
      *
      * @return mixed
      */
-    public function update(int $id, array $options = [])
+    public function update(int $id, array $params = [])
     {
         $path = $this->endpoint($id);
 
         return $this->handleResponse(
-            $this->client->post($path, [
-                'json' => $options
-            ])
+            $this->client->post(
+                $path,
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -102,7 +108,9 @@ class AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->handleResponse($this->client->delete($path));
+        return $this->handleResponse(
+            $this->client->delete($path)
+        );
     }
 
     public function setEndpoint($endpoint)
@@ -121,11 +129,27 @@ class AircallBase
         return static::$baseEndpoint . '/' . $id;
     }
 
-    public function search(array $options = [])
+    public function search(array $params = [])
     {
-        return $this->handleResponse($this->client->get($this->endpoint().'/search',[
-            'query' => $options
-        ]));
+        return $this->handleResponse(
+            $this->client->get(
+                $this->endpoint().'/search',
+                $this->toGuzzleQuery($params))
+        );
+    }
+
+    protected function toGuzzleOptions(array $params): array
+    {
+        return [
+            'json' => $params
+        ];
+    }
+
+    protected function toGuzzleQuery(array $params): array
+    {
+        return [
+            'query' => $params
+        ];
     }
 
     /**
