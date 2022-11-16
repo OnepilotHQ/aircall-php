@@ -17,7 +17,7 @@ class AircallClient
 {
     protected static string $baseUri;
 
-    private Client $http_client;
+    private Client $client;
 
     protected AircallBase $base;
 
@@ -34,11 +34,11 @@ class AircallClient
         static::$baseUri = $uri;
         $this->setDefaultClient();
 
-        $this->base = new AircallBase($this->http_client);
-        $this->users = new AircallUsers($this->http_client);
-        $this->calls = new AircallCalls($this->http_client);
-        $this->contacts = new AircallContacts($this->http_client);
-        $this->teams = new AircallTeams($this->http_client);
+        $this->base = new AircallBase($this->client);
+        $this->users = new AircallUsers($this->client);
+        $this->calls = new AircallCalls($this->client);
+        $this->contacts = new AircallContacts($this->client);
+        $this->teams = new AircallTeams($this->client);
     }
 
     public function __get(string $name)
@@ -49,7 +49,7 @@ class AircallClient
 
     private function setDefaultClient(): void
     {
-        $this->http_client = new Client([
+        $this->client = new Client([
             'base_uri' => static::$baseUri .'/v1/',
             'headers' => [
                 'Authorization' =>  trim('Bearer '.$this->apiToken),
@@ -67,7 +67,7 @@ class AircallClient
      */
     public function setClient(Client $client): static
     {
-        $this->http_client = $client;
+        $this->client = $client;
         return $this;
     }
 
@@ -83,7 +83,7 @@ class AircallClient
      */
     public function post($endpoint, $datas = [])
     {
-        $response = $this->http_client->post($endpoint, [
+        $response = $this->client->post($endpoint, [
             'json' => $datas
         ]);
 
@@ -102,7 +102,7 @@ class AircallClient
      */
     public function put($endpoint, $datas = [])
     {
-        $response = $this->http_client->put($endpoint, [
+        $response = $this->client->put($endpoint, [
             'json' => $datas
         ]);
 
@@ -121,7 +121,7 @@ class AircallClient
      */
     public function delete($endpoint, $datas = [])
     {
-        $response = $this->http_client->delete($endpoint, [
+        $response = $this->client->delete($endpoint, [
             'json' => $datas
         ]);
 
@@ -138,7 +138,7 @@ class AircallClient
      */
     public function get($endpoint, $datas = [])
     {
-        $response = $this->http_client->get($endpoint, [
+        $response = $this->client->get($endpoint, [
             'query' => $datas
         ]);
 
