@@ -4,6 +4,8 @@ namespace Aircall;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Utils;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class AircallUsers.
@@ -30,7 +32,7 @@ class AircallBase
      */
     public function list(array $options = [])
     {
-        return $this->client->get(static::$baseEndpoint, $options);
+        return $this->handleResponse($this->client->get(static::$baseEndpoint, $options));
     }
 
     /**
@@ -44,7 +46,7 @@ class AircallBase
     {
         $path = $this->userPath($id);
 
-        return $this->client->get($path);
+        return $this->handleResponse($this->client->get($path));
     }
 
 
@@ -62,7 +64,7 @@ class AircallBase
      */
     public function create(array $options = [])
     {
-        return $this->client->post(static::$baseEndpoint, $options);
+        return $this->handleResponse($this->client->post(static::$baseEndpoint, $options));
     }
 
     /**
@@ -76,7 +78,7 @@ class AircallBase
     {
         $path = $this->path($id);
 
-        return $this->client->post($path, $options);
+        return $this->handleResponse($this->client->post($path, $options));
     }
 
     /**
@@ -90,7 +92,7 @@ class AircallBase
     {
         $path = $this->path($id);
 
-        return $this->client->delete($path);
+        return $this->handleResponse($this->client->delete($path));
     }
 
     protected function path(int $id): string
@@ -112,6 +114,16 @@ class AircallBase
 
     public function search(array $options = [])
     {
-        return $this->client->get($this->endpoint().'/search', $options);
+        return $this->handleResponse($this->client->get($this->endpoint().'/search', $options));
+    }
+
+    /**
+     * @return mixed
+     */
+    private function handleResponse(ResponseInterface $response)
+    {
+        $stream = Utils::streamFor($response->getBody());
+
+        return json_decode($stream);
     }
 }
