@@ -30,9 +30,11 @@ class AircallBase
      *
      * @return mixed
      */
-    public function list(array $options = [])
+    public function list(array $queryParams = [])
     {
-        return $this->handleResponse($this->client->get(static::$baseEndpoint, $options));
+        return $this->handleResponse($this->client->get(static::$baseEndpoint, [
+            'query' => $queryParams
+        ]));
     }
 
     /**
@@ -62,9 +64,13 @@ class AircallBase
      *
      * @return mixed
      */
-    public function create(array $options = [])
+    public function create(array $bodyParams = [])
     {
-        return $this->handleResponse($this->client->post(static::$baseEndpoint, $options));
+        return $this->handleResponse(
+            $this->client->post(static::$baseEndpoint, [
+                'json' => $bodyParams
+            ])
+        );
     }
 
     /**
@@ -74,11 +80,15 @@ class AircallBase
      *
      * @return mixed
      */
-    public function update(int $id, array $options = [])
+    public function update(int $id, array $bodyParams = [])
     {
         $path = $this->path($id);
 
-        return $this->handleResponse($this->client->post($path, $options));
+        return $this->handleResponse(
+            $this->client->post($path, [
+                'json' => $bodyParams
+            ])
+        );
     }
 
     /**
@@ -112,9 +122,11 @@ class AircallBase
         return static::$baseEndpoint;
     }
 
-    public function search(array $options = [])
+    public function search(array $queryParams = [])
     {
-        return $this->handleResponse($this->client->get($this->endpoint().'/search', $options));
+        return $this->handleResponse($this->client->get($this->endpoint().'/search',[
+            'query' => $queryParams
+        ]));
     }
 
     /**
