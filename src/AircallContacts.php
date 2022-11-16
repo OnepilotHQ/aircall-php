@@ -24,9 +24,11 @@ class AircallContacts extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/phone_details',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/phone_details',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -41,9 +43,11 @@ class AircallContacts extends AircallBase
     {
         $path = $this->endpoint($contactId);
 
-        return $this->client->post(
-            $path.'/phone_details/'.$phoneNumberId,
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/phone_details/'.$phoneNumberId,
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -56,9 +60,11 @@ class AircallContacts extends AircallBase
      */
     public function deletePhoneNumber(int $contactId, int $phoneNumberId)
     {
-        return $this->client->delete(
-            $this->endpoint().'/phone_details/'.
-            $phoneNumberId
+        return $this->handleResponse(
+            $this->client->delete(
+                $this->endpoint().'/phone_details/'.
+                $phoneNumberId
+            )
         );
     }
 
@@ -73,9 +79,11 @@ class AircallContacts extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/email_details',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/email_details',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -90,9 +98,11 @@ class AircallContacts extends AircallBase
     {
         $path = $this->endpoint($contactId);
 
-        return $this->client->post(
-            $path.'/email_details/'.$emailId,
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/email_details/'.$emailId,
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -105,9 +115,11 @@ class AircallContacts extends AircallBase
      */
     public function deleteEmail(int $contactId, int $emailId)
     {
-        return $this->client->delete(
-            $this->endpoint().'/email_details/'.
-            $emailId
+        return $this->handleResponse(
+            $this->client->delete(
+                $this->endpoint().'/email_details/'.
+                $emailId
+            )
         );
     }
 }

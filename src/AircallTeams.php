@@ -22,8 +22,10 @@ class AircallTeams extends AircallBase
     {
         $path = $this->endpoint($teamId);
 
-        return $this->client->post(
-            $path.'/users/'.$userId
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/users/'.$userId
+            )
         );
     }
 
@@ -38,8 +40,10 @@ class AircallTeams extends AircallBase
     {
         $path = $this->endpoint($teamId);
 
-        return $this->client->delete(
-            $path.'/users/'.$userId
+        return $this->handleResponse(
+            $this->client->delete(
+                $path.'/users/'.$userId
+            )
         );
     }
 }

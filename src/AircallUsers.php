@@ -24,9 +24,11 @@ class AircallUsers extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/calls',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/calls',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -41,9 +43,11 @@ class AircallUsers extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/dial',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/dial',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 }

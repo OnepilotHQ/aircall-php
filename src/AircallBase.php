@@ -155,7 +155,7 @@ class AircallBase
     /**
      * @return mixed
      */
-    private function handleResponse(ResponseInterface $response)
+    protected function handleResponse(ResponseInterface $response): mixed
     {
         $stream = Utils::streamFor($response->getBody());
 

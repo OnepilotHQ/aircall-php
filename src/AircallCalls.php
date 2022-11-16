@@ -26,9 +26,11 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/link',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/link',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -43,9 +45,11 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/transfers',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/transfers',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -60,9 +64,11 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/comments',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/comments',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -77,9 +83,11 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/pause_recording',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/pause_recording',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -94,9 +102,11 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/resume_recording',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/resume_recording',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -113,9 +123,11 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/metadata',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/metadata',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -130,9 +142,11 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/tags',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/tags',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 
@@ -147,7 +161,9 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->delete($path.'/recording');
+        return $this->handleResponse(
+            $this->client->delete($path.'/recording')
+        );
     }
 
     /**
@@ -161,8 +177,12 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->delete($path.'/voicemail',
-            $this->toGuzzleOptions($params));
+        return $this->handleResponse(
+            $this->client->delete(
+                $path.'/voicemail',
+                $this->toGuzzleOptions($params)
+            )
+        );
     }
 
     /**
@@ -176,9 +196,11 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        return $this->client->post(
-            $path.'/insight_cards',
-            $this->toGuzzleOptions($params)
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/insight_cards',
+                $this->toGuzzleOptions($params)
+            )
         );
     }
 }
