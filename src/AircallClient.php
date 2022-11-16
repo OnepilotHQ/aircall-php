@@ -75,16 +75,16 @@ class AircallClient
      * Sends POST request to Aircall API.
      *
      * @param string $endpoint
-     * @param array  $datas
+     * @param array  $data
      *
      * @throws GuzzleException
      *
      * @return mixed
      */
-    public function post($endpoint, $datas = [])
+    public function post($endpoint, $data = [])
     {
         $response = $this->client->post($endpoint, [
-            'json' => $datas
+            'json' => $data
         ]);
 
         return $this->handleResponse($response);
@@ -94,16 +94,16 @@ class AircallClient
      * Sends PUT request to Aircall API.
      *
      * @param string $endpoint
-     * @param array  $datas
+     * @param array  $data
      *
      * @throws GuzzleException
      *
      * @return mixed
      */
-    public function put($endpoint, $datas = [])
+    public function put($endpoint, $data = [])
     {
         $response = $this->client->put($endpoint, [
-            'json' => $datas
+            'json' => $data
         ]);
 
         return $this->handleResponse($response);
@@ -113,16 +113,16 @@ class AircallClient
      * Sends DELETE request to Aircall API.
      *
      * @param string $endpoint
-     * @param array  $datas
+     * @param array  $data
      *
      * @throws GuzzleException
      *
      * @return mixed
      */
-    public function delete($endpoint, $datas = [])
+    public function delete($endpoint, $data = [])
     {
         $response = $this->client->delete($endpoint, [
-            'json' => $datas
+            'json' => $data
         ]);
 
         return $this->handleResponse($response);
@@ -130,16 +130,16 @@ class AircallClient
 
     /**
      * @param string $endpoint
-     * @param array  $$datas
+     * @param array  $$data
      *
      * @throws GuzzleException
      *
      * @return mixed
      */
-    public function get($endpoint, $datas = [])
+    public function get($endpoint, $data = [])
     {
         $response = $this->client->get($endpoint, [
-            'query' => $datas
+            'query' => $data
         ]);
 
         return $this->handleResponse($response);
