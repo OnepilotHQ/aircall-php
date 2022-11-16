@@ -30,10 +30,10 @@ class AircallBase
      *
      * @return mixed
      */
-    public function list(array $queryParams = [])
+    public function list(array $options = [])
     {
-        return $this->handleResponse($this->client->get(static::$baseEndpoint, [
-            'query' => $queryParams
+        return $this->handleResponse($this->client->get($this->endpoint(), [
+            'query' => $options
         ]));
     }
 
@@ -54,7 +54,7 @@ class AircallBase
 
     public function userPath(int $id): string
     {
-        return static::$baseEndpoint.'/'.$id;
+        return $this->endpoint().'/'.$id;
     }
 
     /**
@@ -64,11 +64,11 @@ class AircallBase
      *
      * @return mixed
      */
-    public function create(array $bodyParams = [])
+    public function create(array $options = [])
     {
         return $this->handleResponse(
-            $this->client->post(static::$baseEndpoint, [
-                'json' => $bodyParams
+            $this->client->post($this->endpoint(), [
+                'json' => $options
             ])
         );
     }
@@ -80,13 +80,13 @@ class AircallBase
      *
      * @return mixed
      */
-    public function update(int $id, array $bodyParams = [])
+    public function update(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->handleResponse(
             $this->client->post($path, [
-                'json' => $bodyParams
+                'json' => $options
             ])
         );
     }
@@ -100,14 +100,9 @@ class AircallBase
      */
     public function delete(int $id)
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->handleResponse($this->client->delete($path));
-    }
-
-    protected function path(int $id): string
-    {
-        return static::$baseEndpoint.'/'.$id;
     }
 
     public function setEndpoint($endpoint)
@@ -117,15 +112,19 @@ class AircallBase
         return $this;
     }
 
-    public function endpoint()
+    public function endpoint(?int $id = null)
     {
-        return static::$baseEndpoint;
+        if(!$id){
+            return static::$baseEndpoint;
+        }
+
+        return static::$baseEndpoint . '/' . $id;
     }
 
-    public function search(array $queryParams = [])
+    public function search(array $options = [])
     {
-        return $this->handleResponse($this->client->get($this->endpoint().'/search', [
-            'query' => $queryParams
+        return $this->handleResponse($this->client->get($this->endpoint().'/search',[
+            'query' => $options
         ]));
     }
 

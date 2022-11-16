@@ -22,7 +22,7 @@ class AircallUsers extends AircallBase
      */
     public function calls(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/calls', $options);
     }
@@ -36,7 +36,7 @@ class AircallUsers extends AircallBase
      */
     public function dial(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/dial', $options);
     }

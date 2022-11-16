@@ -20,7 +20,7 @@ class AircallTeams extends AircallBase
      */
     public function addUser(int $teamId, int $userId)
     {
-        $path = $this->path($teamId);
+        $path = $this->endpoint($teamId);
 
         return $this->client->post($path.'/users/'.$userId);
     }
@@ -34,7 +34,7 @@ class AircallTeams extends AircallBase
      */
     public function removeUser(int $teamId, int $userId)
     {
-        $path = $this->path($teamId);
+        $path = $this->endpoint($teamId);
 
         return $this->client->delete($path.'/users/'.$userId);
     }

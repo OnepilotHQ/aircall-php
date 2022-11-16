@@ -32,7 +32,7 @@ class AircallCalls extends AircallBase
      */
     public function link(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/link', $options);
     }
@@ -46,7 +46,7 @@ class AircallCalls extends AircallBase
      */
     public function transfert(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/transfers', $options);
     }
@@ -60,7 +60,7 @@ class AircallCalls extends AircallBase
      */
     public function comment(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/comments', $options);
     }
@@ -74,7 +74,7 @@ class AircallCalls extends AircallBase
      */
     public function pauseRecording(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/pause_recording', $options);
     }
@@ -88,7 +88,7 @@ class AircallCalls extends AircallBase
      */
     public function resumeRecording(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/resume_recording', $options);
     }
@@ -104,7 +104,7 @@ class AircallCalls extends AircallBase
      */
     public function getMetadata(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/metadata', $options);
     }
@@ -118,7 +118,7 @@ class AircallCalls extends AircallBase
      */
     public function setTags(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/tags', $options);
     }
@@ -132,7 +132,7 @@ class AircallCalls extends AircallBase
      */
     public function deleteRecording(int $id)
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->delete($path.'/recording');
     }
@@ -146,7 +146,7 @@ class AircallCalls extends AircallBase
      */
     public function deleteVoicemail(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->delete($path.'/voicemail', $options);
     }
@@ -160,7 +160,7 @@ class AircallCalls extends AircallBase
      */
     public function addInsightCards(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/insight_cards', $options);
     }

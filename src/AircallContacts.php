@@ -22,7 +22,7 @@ class AircallContacts extends AircallBase
      */
     public function addPhoneNumber(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/phone_details', $options);
     }
@@ -36,7 +36,7 @@ class AircallContacts extends AircallBase
      */
     public function updatePhoneNumber(int $contactId, int $phoneNumberId, array $options = [])
     {
-        $path = $this->path($contactId);
+        $path = $this->endpoint($contactId);
 
         return $this->client->post($path.'/phone_details/'.$phoneNumberId, $options);
     }
@@ -62,7 +62,7 @@ class AircallContacts extends AircallBase
      */
     public function addEmail(int $id, array $options = [])
     {
-        $path = $this->path($id);
+        $path = $this->endpoint($id);
 
         return $this->client->post($path.'/email_details', $options);
     }
@@ -76,7 +76,7 @@ class AircallContacts extends AircallBase
      */
     public function updateEmail(int $contactId, int $emailId, array $options = [])
     {
-        $path = $this->path($contactId);
+        $path = $this->endpoint($contactId);
 
         return $this->client->post($path.'/email_details/'.$emailId, $options);
     }
