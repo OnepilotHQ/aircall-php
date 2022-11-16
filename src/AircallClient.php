@@ -52,7 +52,10 @@ class AircallClient
         $this->http_client = new Client([
             'base_uri' => static::$baseUri .'/v1/',
             'headers' => [
-                'Authorization' =>  trim('Bearer '.$this->apiToken)
+                'Authorization' =>  trim('Bearer '.$this->apiToken),
+                'headers' => [
+                    'Accept' => 'application/json',
+                ],
             ]
         ]);
     }
@@ -81,10 +84,7 @@ class AircallClient
     public function post($endpoint, $datas = [])
     {
         $response = $this->http_client->request('POST', $endpoint, [
-            'json' => $datas,
-            'headers' => [
-                'Accept' => 'application/json',
-            ],
+            'json' => $datas
         ]);
 
         return $this->handleResponse($response);
@@ -103,10 +103,7 @@ class AircallClient
     public function put($endpoint, $datas = [])
     {
         $response = $this->http_client->request('PUT', $endpoint, [
-            'json' => $datas,
-            'headers' => [
-                'Accept' => 'application/json',
-            ],
+            'json' => $datas
         ]);
 
         return $this->handleResponse($response);
@@ -125,10 +122,7 @@ class AircallClient
     public function delete($endpoint, $datas = [])
     {
         $response = $this->http_client->request('DELETE', $endpoint, [
-            'json' => $datas,
-            'headers' => [
-                'Accept' => 'application/json',
-            ],
+            'json' => $datas
         ]);
 
         return $this->handleResponse($response);
@@ -145,10 +139,7 @@ class AircallClient
     public function get($endpoint, $datas = [])
     {
         $response = $this->http_client->request('GET', $endpoint, [
-            'query' => $datas,
-            'headers' => [
-                'Accept' => 'application/json',
-            ],
+            'query' => $datas
         ]);
 
         return $this->handleResponse($response);
