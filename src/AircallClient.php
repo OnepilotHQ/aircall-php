@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
 class AircallClient
 {
     protected static string $baseUri;
-
+    protected AircallIntegrations $integrations;
     private Client $client;
 
     protected AircallBase $base;
@@ -39,6 +39,7 @@ class AircallClient
         $this->calls = new AircallCalls($this->client);
         $this->contacts = new AircallContacts($this->client);
         $this->teams = new AircallTeams($this->client);
+        $this->integrations = new AircallIntegrations($this->client);
     }
 
     public function __get(string $name)
