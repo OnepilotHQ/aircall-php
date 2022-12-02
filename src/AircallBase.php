@@ -17,7 +17,7 @@ class AircallBase
     protected static string $baseEndpoint = '';
 
     protected Client $client;
-    protected mixed $id;
+    protected mixed $id = null;
 
     public function __construct(Client $client)
     {
