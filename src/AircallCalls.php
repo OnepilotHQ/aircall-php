@@ -157,7 +157,7 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function deleteRecording(int $id)
+    public function deleteRecording()
     {
         $path = $this->endpoint();
 
@@ -188,7 +188,6 @@ class AircallCalls extends AircallBase
     /**
      * Comment a specific Call.
      *
-     * @param int        $id
      * @param array|string $params Send the comment with with array ['content' => 'Lorem'] or string, only the content
      * @return mixed
      * @throws GuzzleException
