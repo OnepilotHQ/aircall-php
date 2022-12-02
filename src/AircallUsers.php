@@ -20,9 +20,9 @@ class AircallUsers extends AircallBase
      *
      * @return mixed
      */
-    public function calls(int $id, array $params = [])
+    public function calls(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -39,9 +39,9 @@ class AircallUsers extends AircallBase
      *
      * @return mixed
      */
-    public function dial(int $id, array $params = [])
+    public function dial(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(

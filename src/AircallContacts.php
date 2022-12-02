@@ -20,9 +20,9 @@ class AircallContacts extends AircallBase
      *
      * @return mixed
      */
-    public function addPhoneNumber(int $id, array $params = [])
+    public function addPhoneNumber( array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -39,9 +39,9 @@ class AircallContacts extends AircallBase
      *
      * @return mixed
      */
-    public function updatePhoneNumber(int $contactId, int $phoneNumberId, array $params = [])
+    public function updatePhoneNumber(int $phoneNumberId, array $params = [])
     {
-        $path = $this->endpoint($contactId);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -58,7 +58,7 @@ class AircallContacts extends AircallBase
      *
      * @return mixed
      */
-    public function deletePhoneNumber(int $contactId, int $phoneNumberId)
+    public function deletePhoneNumber(int $phoneNumberId)
     {
         return $this->handleResponse(
             $this->client->delete(
@@ -75,9 +75,9 @@ class AircallContacts extends AircallBase
      *
      * @return mixed
      */
-    public function addEmail(int $id, array $params = [])
+    public function addEmail(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -94,9 +94,9 @@ class AircallContacts extends AircallBase
      *
      * @return mixed
      */
-    public function updateEmail(int $contactId, int $emailId, array $params = [])
+    public function updateEmail(int $emailId, array $params = [])
     {
-        $path = $this->endpoint($contactId);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -113,7 +113,7 @@ class AircallContacts extends AircallBase
      *
      * @return mixed
      */
-    public function deleteEmail(int $contactId, int $emailId)
+    public function deleteEmail(int $emailId)
     {
         return $this->handleResponse(
             $this->client->delete(
