@@ -53,16 +53,21 @@ class AircallCalls extends AircallBase
         );
     }
 
+
     /**
-     * Comment the Call.
+     * Comment a specific Call.
      *
-     * @throws GuzzleException
-     *
+     * @param array|string $params Send the comment with with array ['content' => 'Lorem'] or string, only the content
      * @return mixed
+     * @throws GuzzleException
      */
-    public function comment(array $params = [])
+    public function comment(array|string $params)
     {
         $path = $this->endpoint();
+
+        $params = is_string($params) ? [
+            'content' => $params
+        ] : $params;
 
         return $this->handleResponse(
             $this->client->post(
@@ -180,29 +185,6 @@ class AircallCalls extends AircallBase
         return $this->handleResponse(
             $this->client->delete(
                 $path.'/voicemail',
-                $this->toGuzzleOptions($params)
-            )
-        );
-    }
-
-    /**
-     * Comment a specific Call.
-     *
-     * @param array|string $params Send the comment with with array ['content' => 'Lorem'] or string, only the content
-     * @return mixed
-     * @throws GuzzleException
-     */
-    public function comments(array|string $params)
-    {
-        $path = $this->endpoint();
-
-        $params = is_string($params) ? [
-            'content' => $params
-        ] : $params;
-
-        return $this->handleResponse(
-            $this->client->post(
-                $path.'/comments',
                 $this->toGuzzleOptions($params)
             )
         );
