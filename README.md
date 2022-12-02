@@ -20,10 +20,10 @@ $client->ping();
 You can access this five methods from all endpoints that are not defined by custom class
 ```php
 $client->{endpoint}->list();
-$client->{endpoint}->get($id);
+$client->{endpoint}->for($id)->get();
 $client->{endpoint}->create($options);
-$client->{endpoint}->update($id, $options);
-$client->{endpoint}->delete($id);
+$client->{endpoint}->for($id)->update($options);
+$client->{endpoint}->for($id)->delete();
 
 ```
 
@@ -31,7 +31,7 @@ $client->{endpoint}->delete($id);
 
 ```php
 // Get a user by ID
-$client->users->get(155468);
+$client->users->for($id)->get();
 
 // List all users
 $client->users->list();
@@ -41,7 +41,7 @@ $client->users->list();
 
 ```php
 // Get a call by ID
-$client->calls->get(155468);
+$client->calls->for($id)->get();
 
 // List all calls
 $client->calls->list();
@@ -52,20 +52,20 @@ $client->calls->search([
 ]);
 
 // Display a link in-app to the User who answered a specific Call.
-$client->calls->link(155468, [
+$client->calls->for($id)->link([
     'link' => 'http://something.io/mypage'
 ]);
 
 // Transfer the Call to another user.
-$client->calls->transfert(1644658, [
+$client->calls->for($id)->transfert([
     'user_id' => 8945487
 ]);
 
 // Delete the recording of a specific Call.
-$client->calls->deleteRecording(795312);
+$client->calls->for($id)->deleteRecording();
 
 // Delete the voicemail of a specific Call.
-$client->calls->deleteVoicemail(13877988);
+$client->calls->for($id)->deleteVoicemail();
 ```
 
 ### Contacts
@@ -75,7 +75,7 @@ $client->calls->deleteVoicemail(13877988);
 $client->contacts->list();
 
 // Get a contact by ID
-$client->contacts->get(699421);
+$client->contacts->for($id)->get();
 
 // Create a contact
 $client->contacts->create([
@@ -103,7 +103,7 @@ $client->contacts->search([
 ]);
 
 // Update data for a specific Contact
-$client->contacts->update(165451, [
+$client->contacts->for($id)->update([
   'first_name'    => 'John',
   'last_name'     => 'Doe',
   'information'   => 'TEST',
@@ -122,4 +122,4 @@ $client->contacts->update(165451, [
 ]);
 
 // Delete a specific Contact
-$client->contacts->delete(325459);
+$client->contacts->for($id)->delete();
