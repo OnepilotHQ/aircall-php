@@ -186,6 +186,28 @@ class AircallCalls extends AircallBase
     }
 
     /**
+     * Comment a specific Call.
+     *
+     * @param int        $id
+     * @param array|string $params Send the comment with with array ['content' => 'Lorem'] or string, only the content
+     * @return mixed
+     * @throws GuzzleException
+     */
+    public function comments(int $id, array|string $params)
+    {
+        $path = $this->endpoint($id);
+
+        $params = is_string($params) ? [$params] : $params;
+
+        return $this->handleResponse(
+            $this->client->post(
+                $path.'/comments',
+                $this->toGuzzleOptions($params)
+            )
+        );
+    }
+
+    /**
      * Add Insight Cards display custom data to Agents in their Phone apps during ongoing Calls.
      *
      * @throws GuzzleException
