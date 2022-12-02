@@ -16,7 +16,6 @@ use Psr\Http\Message\ResponseInterface;
 class AircallClient
 {
     protected static string $baseUri;
-    protected AircallIntegrations $integrations;
     private Client $client;
 
     protected AircallBase $base;
@@ -28,6 +27,8 @@ class AircallClient
     public AircallContacts $contacts;
 
     public AircallTeams $teams;
+
+    public AircallIntegrations $integrations;
 
     public function __construct(protected string $apiID, protected string $apiToken, $uri = 'https://api.aircall.io')
     {
