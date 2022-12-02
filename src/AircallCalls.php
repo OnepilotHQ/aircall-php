@@ -197,7 +197,9 @@ class AircallCalls extends AircallBase
     {
         $path = $this->endpoint($id);
 
-        $params = is_string($params) ? [$params] : $params;
+        $params = is_string($params) ? [
+            'content' => $params
+        ] : $params;
 
         return $this->handleResponse(
             $this->client->post(
