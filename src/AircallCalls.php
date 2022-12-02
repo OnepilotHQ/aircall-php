@@ -22,9 +22,9 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function link(int $id, array $params = [])
+    public function link(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -41,9 +41,9 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function transfert(int $id, array $params = [])
+    public function transfert(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -60,9 +60,9 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function comment(int $id, array $params = [])
+    public function comment(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -79,9 +79,9 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function pauseRecording(int $id, array $params = [])
+    public function pauseRecording(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -98,9 +98,9 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function resumeRecording(int $id, array $params = [])
+    public function resumeRecording(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -119,9 +119,9 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function getMetadata(int $id, array $params = [])
+    public function getMetadata(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -138,9 +138,9 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function setTags(int $id, array $params = [])
+    public function setTags(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(
@@ -159,7 +159,7 @@ class AircallCalls extends AircallBase
      */
     public function deleteRecording(int $id)
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->delete($path.'/recording')
@@ -173,9 +173,9 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function deleteVoicemail(int $id, array $params = [])
+    public function deleteVoicemail(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->delete(
@@ -193,9 +193,9 @@ class AircallCalls extends AircallBase
      * @return mixed
      * @throws GuzzleException
      */
-    public function comments(int $id, array|string $params)
+    public function comments(array|string $params)
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         $params = is_string($params) ? [$params] : $params;
 
@@ -214,9 +214,9 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function addInsightCards(int $id, array $params = [])
+    public function addInsightCards(array $params = [])
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->post(

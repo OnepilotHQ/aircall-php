@@ -17,12 +17,23 @@ class AircallBase
     protected static string $baseEndpoint = '';
 
     protected Client $client;
+    protected mixed $id;
 
     public function __construct(Client $client)
     {
         $this->client = $client;
     }
 
+    public function for($id): static
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
     /**
      * Lists.
      *
@@ -46,20 +57,15 @@ class AircallBase
      *
      * @return mixed
      */
-    public function get(int $id)
+    public function get()
     {
-        $path = $this->userPath($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->get($path)
         );
     }
 
-
-    public function userPath(int $id): string
-    {
-        return $this->endpoint().'/'.$id;
-    }
 
     /**
      * Creates a item.
@@ -85,10 +91,9 @@ class AircallBase
      *
      * @return mixed
      */
-    public function update(int $id, array $params = [])
+    public function update(array $params = [])
     {
-        $path = $this->endpoint($id);
-
+        $path = $this->endpoint();
         return $this->handleResponse(
             $this->client->post(
                 $path,
@@ -104,9 +109,9 @@ class AircallBase
      *
      * @return mixed
      */
-    public function delete(int $id)
+    public function delete()
     {
-        $path = $this->endpoint($id);
+        $path = $this->endpoint();
 
         return $this->handleResponse(
             $this->client->delete($path)
@@ -120,13 +125,13 @@ class AircallBase
         return $this;
     }
 
-    public function endpoint(?int $id = null)
+    public function endpoint()
     {
-        if(!$id){
+        if(!$this->getId()){
             return static::$baseEndpoint;
         }
 
-        return static::$baseEndpoint . '/' . $id;
+        return static::$baseEndpoint . '/' . $this->getId();
     }
 
     public function search(array $params = [])
