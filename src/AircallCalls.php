@@ -41,9 +41,13 @@ class AircallCalls extends AircallBase
      *
      * @return mixed
      */
-    public function transfert(array $params = [])
+    public function transfert(array|string $params = [])
     {
         $path = $this->endpoint();
+
+        $params = is_string($params) ? [
+            'number' => $params
+        ] : $params;
 
         return $this->handleResponse(
             $this->client->post(
