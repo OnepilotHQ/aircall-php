@@ -34,13 +34,7 @@ class AircallClient
     {
         static::$baseUri = $uri;
         $this->setDefaultClient();
-
-        $this->base = new AircallBase($this->client);
-        $this->users = new AircallUsers($this->client);
-        $this->calls = new AircallCalls($this->client);
-        $this->contacts = new AircallContacts($this->client);
-        $this->teams = new AircallTeams($this->client);
-        $this->integrations = new AircallIntegrations($this->client);
+        $this->initEndpoints();
     }
 
     public function __get(string $name)
@@ -70,6 +64,7 @@ class AircallClient
     public function setClient(Client $client): static
     {
         $this->client = $client;
+        $this->initEndpoints();
         return $this;
     }
 
@@ -155,10 +150,22 @@ class AircallClient
     /**
      * @return mixed
      */
-    private function handleResponse(ResponseInterface $response)
+    private function handleResponse(ResponseInterface $response): mixed
     {
         $stream = Utils::streamFor($response->getBody());
 
         return json_decode($stream);
+    }
+
+    private function initEndpoints(): void
+    {
+        $this->base = new AircallBase($this->client);
+        $this->users = new AircallUsers($this->client);
+        $this->calls = new AircallCalls($this->client);
+        $this->contacts = new AircallContacts($this->client);
+        $this->teams = new AircallTeams($this->client);
+        $this->integrations = new AircallIntegrations($this->client);
+
+        return $this;
     }
 }
