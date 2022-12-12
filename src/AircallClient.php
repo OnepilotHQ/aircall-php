@@ -165,7 +165,5 @@ class AircallClient
         $this->contacts = new AircallContacts($this->client);
         $this->teams = new AircallTeams($this->client);
         $this->integrations = new AircallIntegrations($this->client);
-
-        return $this;
     }
 }
