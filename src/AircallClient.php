@@ -29,7 +29,7 @@ class AircallClient
     public AircallTeams $teams;
 
     public AircallIntegrations $integrations;
-q
+
     public AircallAvailabilities $availabilities;
 
     public function __construct(protected string $apiID, protected string $apiToken, $uri = 'https://api.aircall.io')
