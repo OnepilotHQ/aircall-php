@@ -9,5 +9,5 @@ namespace Aircall;
  */
 class AircallAvailabilities extends AircallBase
 {
-    protected static string $baseEndpoint = 'availabilities';
+    protected static string $baseEndpoint = 'users/availabilities';
 }
