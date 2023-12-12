@@ -29,6 +29,8 @@ class AircallClient
     public AircallTeams $teams;
 
     public AircallIntegrations $integrations;
+q
+    public AircallAvailabilities $availabilities;
 
     public function __construct(protected string $apiID, protected string $apiToken, $uri = 'https://api.aircall.io')
     {
@@ -165,5 +167,6 @@ class AircallClient
         $this->contacts = new AircallContacts($this->client);
         $this->teams = new AircallTeams($this->client);
         $this->integrations = new AircallIntegrations($this->client);
+        $this->availabilities = new AircallAvailabilities($this->client);
     }
 }
